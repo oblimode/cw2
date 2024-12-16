@@ -43,6 +43,19 @@ pipeline {
                 }
             }
         }
+	 stage('SSH and Run Commands') {
+            steps {
+                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@$SSH_HOST << EOF
+                        cd ansibleplaybooks
+                        ansible-playbook rollingupdate-scale-pb.yml
+                        exit
+			EOF
+                    '''
+                }
+            }
+        }
     }
     post {
         always {
