@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERID = 'oblimode'
+	DOCKERHUB_CREDENTIALS= credentials('jenkins')
     }
     stages {
         stage('Build Image') {
