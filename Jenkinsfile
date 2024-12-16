@@ -14,7 +14,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    sh 'docker run -d --rm --name test-cw2 -p 8080:8080 $DOCKERID/cw2-server:1.0'
+                    sh 'docker run -d --rm --name test-cw2 $DOCKERID/cw2-server:1.0'
                 }
             }
         }
