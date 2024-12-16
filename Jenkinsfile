@@ -10,14 +10,14 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    sh 'docker image build --tag $DOCKERID/cw2-server:1.0 .'
+                    sh 'docker image build --tag $DOCKERID/cw2-server:2.0 .'
                 }
             }
         }
         stage('Run Container') {
             steps {
                 script {
-                    sh 'docker run -d --rm --name test-cw2 $DOCKERID/cw2-server:1.0'
+                    sh 'docker run -d --rm --name test-cw2 $DOCKERID/cw2-server:2.0'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 script {
-                    sh 'docker image push $DOCKERID/cw2-server:1.0'
+                    sh 'docker image push $DOCKERID/cw2-server:2.0'
                 }
             }
         }
