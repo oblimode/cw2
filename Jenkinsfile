@@ -43,18 +43,6 @@ pipeline {
                 }
             }
         }
-	stage('SSH and Run Commands') {
-            steps {
-                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@$SSH_HOST << EOF
-                        cd ansibleplaybooks
-                        ansible-playbook cw2-deployk8fromhub.yml
-                        EOF
-                    '''
-                }
-            }
-        }
     }
     post {
         always {
