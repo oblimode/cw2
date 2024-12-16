@@ -4,7 +4,7 @@ pipeline {
         DOCKERID = 'oblimode'
 	DOCKERHUB_CREDENTIALS= credentials('jenkins')
 	SSH_CREDENTIALS_ID = 'my-ssh-key'
-        SSH_HOST = 'ec2-54-237-141-20.compute-1.amazonaws.com'
+        SSH_HOST = 'ec2-3-80-111-125.compute-1.amazonaws.com'
     }
     stages {
         stage('Build Image') {
