@@ -3,6 +3,8 @@ pipeline {
     environment {
         DOCKERID = 'oblimode'
 	DOCKERHUB_CREDENTIALS= credentials('jenkins')
+	SSH_CREDENTIALS_ID = 'my-ssh-key'
+        SSH_HOST = 'ec2-54-237-141-20.compute-1.amazonaws.com'
     }
     stages {
         stage('Build Image') {
@@ -38,6 +40,18 @@ pipeline {
             steps {
                 script {
                     sh 'docker image push $DOCKERID/cw2-server:1.0'
+                }
+            }
+        }
+	stage('SSH and Run Commands') {
+            steps {
+                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@$SSH_HOST << EOF
+                        cd ansibleplaybooks
+                        ansible-playbook cw2-deployk8fromhub.yml
+                        EOF
+                    '''
                 }
             }
         }
