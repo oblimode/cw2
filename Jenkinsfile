@@ -25,6 +25,12 @@ pipeline {
                 }
             }
         }
+        stage('Login to Docker Hub') {      	
+            steps {                       	
+	            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+	            echo 'Login Completed'      
+            }           
+        }   
         stage('Push Image') {
             steps {
                 script {
@@ -37,6 +43,7 @@ pipeline {
         always {
             script {
                 sh 'docker stop test-cw2'
+                sh 'docker logout'
             }
         }
     }
